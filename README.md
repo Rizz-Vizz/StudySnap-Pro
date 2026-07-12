@@ -7,6 +7,7 @@
 
 <p align="center"><em>The ultimate YouTube study companion : snap frames, take rich notes, and organize everything directly from your browser. 100% local and private.
 </em>
+  
 <img width="362" height="512" alt="Screenshot 2026-07-12 235800" src="https://github.com/user-attachments/assets/e796cd9b-88fc-462b-9d94-bec1d2366a8d" />
 </p>
 
