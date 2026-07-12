@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <title>StudySnap Pro</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    button { font-family: inherit; cursor: pointer; }
+    :root {
+      --ac: #5b6ef5; --ac-h: #4758e0; --ac-s: rgba(91,110,245,.14);
+      --ok: #4ade80; --r2: 6px; --r3: 10px; --tr: .14s ease;
+    }
+    html[data-theme="dark"] {
+      --bg: #0e1018; --el: #151720; --card: #1c1f2e; --inp: #090b12;
+      --bdr: #232637; --tx: #d6dae6; --mu: #5e687e; --fa: #353d4c;
+      color-scheme: dark;
+    }
+    html[data-theme="light"] {
+      --bg: #f4f2ed; --el: #fff; --card: #fff; --inp: #eae7e0;
+      --bdr: #ddd7cd; --tx: #1a1e2c; --mu: #6a7080; --fa: #a8b0c0;
+      color-scheme: light;
+    }
+    body {
+      width: 300px;
+      background: var(--bg);
+      color: var(--tx);
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      font-size: 13px;
+      line-height: 1.5;
+      border-radius: var(--r3);
+      overflow: hidden;
+    }
+    
+    .hdr {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 16px 12px;
+      border-bottom: 1px solid var(--bdr);
+      background: var(--el);
+    }
+    .hdr-logo {
+      width: 28px; height: 28px;
+      color: var(--ac);
+      flex-shrink: 0;
+    }
+    .hdr-logo svg { width: 100%; height: 100%; display: block; }
+    .hdr-text { flex: 1; min-width: 0; }
+    .hdr-name {
+      font-size: 14px; font-weight: 700;
+      color: var(--tx); letter-spacing: -0.01em;
+    }
+    .hdr-tagline { font-size: 10.5px; color: var(--mu); margin-top: 1px; }
+    
+    .body { padding: 14px 16px 6px; }
+    
+    .notice {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      background: var(--card);
+      border: 1px solid var(--bdr);
+      border-left: 3px solid var(--ac);
+      border-radius: var(--r2);
+      padding: 10px 12px;
+      margin-bottom: 12px;
+    }
+    .notice-icon {
+      flex-shrink: 0;
+      width: 16px; height: 16px;
+      color: var(--ac);
+      margin-top: 1px;
+    }
+    .notice-icon svg { width: 100%; height: 100%; display: block; }
+    .notice-text { font-size: 12px; color: var(--mu); line-height: 1.55; }
+    .notice-text strong { color: var(--tx); }
+    
+    .features { display: flex; flex-direction: column; gap: 7px; margin-bottom: 14px; }
+    .feature {
+      display: flex; align-items: center; gap: 9px;
+      font-size: 12px; color: var(--tx);
+    }
+    .feature-dot {
+      width: 6px; height: 6px;
+      background: var(--ac); border-radius: 50%;
+      flex-shrink: 0;
+    }
+    
+    .actions { display: flex; flex-direction: column; gap: 6px; padding: 0 0 14px; }
+    .btn-p {
+      display: flex; align-items: center; justify-content: center; gap: 7px;
+      width: 100%; padding: 9px 12px; font-size: 12.5px; font-weight: 600;
+      border-radius: var(--r2); border: 0;
+      background: var(--ac); color: #fff;
+      transition: background var(--tr);
+      cursor: pointer;
+    }
+    .btn-p:hover { background: var(--ac-h); }
+    .btn-p:active { transform: scale(.97); }
+    .btn-s {
+      display: flex; align-items: center; justify-content: center; gap: 7px;
+      width: 100%; padding: 8px 12px; font-size: 12px; font-weight: 500;
+      border-radius: var(--r2); border: 1px solid var(--bdr);
+      background: var(--card); color: var(--tx);
+      transition: background var(--tr), border-color var(--tr);
+      cursor: pointer;
+    }
+    .btn-s:hover { background: var(--inp); border-color: var(--ac); }
+    .btn-s svg { color: var(--mu); }
+    
+    .footer {
+      padding: 8px 16px;
+      border-top: 1px solid var(--bdr);
+      background: var(--el);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .footer-label { font-size: 10px; color: var(--fa); }
+    .footer-dot {
+      width: 5px; height: 5px;
+      background: var(--ok); border-radius: 50%;
+    }
+  </style>
+</head>
+<body>
+  <div class="hdr">
+    <div class="hdr-logo">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M6.5 3.5h9.5a1.5 1.5 0 0 1 1.5 1.5v13.2a1.5 1.5 0 0 1-1.5 1.5H6.5A2.5 2.5 0 0 1 4 17.2V6A2.5 2.5 0 0 1 6.5 3.5z"/>
+        <path d="M4 17.2a2.5 2.5 0 0 1 2.5-2.2H17.5" stroke-width="1.6"/>
+        <path d="M8 8h6M8 11h6" stroke-width="1.6"/>
+      </svg>
+    </div>
+    <div class="hdr-text">
+      <div class="hdr-name">StudySnap Pro</div>
+      <div class="hdr-tagline">YouTube study companion</div>
+    </div>
+  </div>
+  <div class="body">
+    <div class="notice">
+      <div class="notice-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"/>
+          <line x1="12" y1="8" x2="12" y2="12"/>
+          <line x1="12" y1="16" x2="12.01" y2="16"/>
+        </svg>
+      </div>
+      <div class="notice-text">
+        Open a <strong>YouTube video</strong> and click this icon to launch the notes panel alongside it.
+      </div>
+    </div>
+    <div class="features">
+      <div class="feature">
+        <div class="feature-dot"></div>
+        Snap video frames directly into notes
+      </div>
+      <div class="feature">
+        <div class="feature-dot"></div>
+        Rich text editor — bold, highlight, tables &amp; more
+      </div>
+      <div class="feature">
+        <div class="feature-dot"></div>
+        All notes saved locally &amp; searchable
+      </div>
+      <div class="feature">
+        <div class="feature-dot"></div>
+        Export to PDF, Word, or Markdown
+      </div>
+    </div>
+  </div>
+  <div class="actions" style="padding: 0 16px 14px;">
+    <button class="btn-p" id="open-yt-btn">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+      Open YouTube
+    </button>
+    <button class="btn-s" id="open-history-btn">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+      Browse My Notes Library
+    </button>
+  </div>
+  <div class="footer">
+    <span class="footer-label">100% local &amp; private</span>
+    <div class="footer-dot" title="All notes stored on your device"></div>
+  </div>
+  <script src="../js/popup.js"></script>
+</body>
+</html>

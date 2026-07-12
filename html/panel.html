@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <title>StudySnap Pro</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Crimson+Pro:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+<div id="info-view" class="hidden">
+  <div class="info-logo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 3.5h9.5a1.5 1.5 0 0 1 1.5 1.5v13.2a1.5 1.5 0 0 1-1.5 1.5H6.5A2.5 2.5 0 0 1 4 17.2V6A2.5 2.5 0 0 1 6.5 3.5z"/><path d="M4 17.2a2.5 2.5 0 0 1 2.5-2.2H17.5" stroke-width="1.2"/><path d="M8 8h6M8 11h6" stroke-width="1.2"/></svg></div>
+  <h1>StudySnap Pro</h1>
+  <p class="info-tagline">Notes, screenshots, and highlights — right alongside any YouTube video.</p>
+  <div class="info-features">
+    <div class="info-feature"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg> Snap a video frame straight into your notes</div>
+    <div class="info-feature"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2v4H2M18 22v-4h4M22 6h-4V2M2 18h4v4"/></svg> Crop, highlight, and mark up screenshots</div>
+    <div class="info-feature"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg> Every note saved automatically, searchable later</div>
+  </div>
+  <p class="info-hint">Open a YouTube video and click <strong>StudySnap Pro</strong> on the player controls, or the toolbar icon here, to start taking notes.</p>
+  <button id="info-history-btn" class="btn-p full">Browse My Notes Library</button>
+</div>
+<div id="note-view" class="hidden">
+<header id="app-header">
+  <div class="hdr-main">
+    <span class="hdr-brand" title="StudySnap Pro"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 3.5h9.5a1.5 1.5 0 0 1 1.5 1.5v13.2a1.5 1.5 0 0 1-1.5 1.5H6.5A2.5 2.5 0 0 1 4 17.2V6A2.5 2.5 0 0 1 6.5 3.5z"/><path d="M4 17.2a2.5 2.5 0 0 1 2.5-2.2H17.5" stroke-width="1.6"/><path d="M8 8h6M8 11h6" stroke-width="1.6"/></svg></span>
+    <input id="note-title-input" class="hdr-title" type="text"
+           value="Untitled Note" placeholder="Note title…" spellcheck="false">
+    <button id="snap-btn" class="hdr-snap" title="Snap video frame">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+      Snap Frame
+    </button>
+  </div>
+  <div class="hdr-sub">
+    <button id="export-btn" class="hdr-icon" title="Export"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> Export</button>
+    <button id="notes-list-btn" class="hdr-icon" title="My Notes"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg> Notes</button>
+    <button id="history-btn" class="hdr-icon" title="Library"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><path d="M18.7 8 13 13.7l-3-3L4.3 16.4"/></svg> Library</button>
+    <button id="settings-btn" class="hdr-icon" title="Settings"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg> Settings</button>
+  </div>
+  <div id="toolbar">
+    <button class="tb" data-cmd="undo" title="Undo (Ctrl+Z)">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg>
+    </button>
+    <button class="tb" data-cmd="redo" title="Redo (Ctrl+Y)">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.13-9.36L23 10"/></svg>
+    </button>
+    <i class="ts"></i>
+    <select id="block-sel" class="tb-sel" title="Block style">
+      <option value="p">Body</option>
+      <option value="h1">H1</option>
+      <option value="h2">H2</option>
+      <option value="h3">H3</option>
+      <option value="blockquote">Quote</option>
+      <option value="pre">Code</option>
+    </select>
+    <i class="ts"></i>
+    <button class="tb" data-cmd="bold" title="Bold (Ctrl+B)"><b>B</b></button>
+    <button class="tb" data-cmd="italic" title="Italic (Ctrl+I)"><i>I</i></button>
+    <button class="tb" data-cmd="underline" title="Underline (Ctrl+U)"><u>U</u></button>
+    <button class="tb" data-cmd="strikeThrough" title="Strikethrough"><s>S</s></button>
+    <button class="tb" data-cmd="superscript" title="Superscript">x²</button>
+    <button class="tb" data-cmd="subscript" title="Subscript">x₂</button>
+    <i class="ts"></i>
+    <div id="color-widget" class="color-widget">
+      <button id="color-btn" class="tb" title="Text colour"><span class="color-current" style="background:#e6e8ee"></span></button>
+      <div id="color-popover" class="color-popover hidden">
+        <div class="color-swatch-grid">
+          <button data-color="#e6e8ee" title="Default"></button>
+          <button data-color="#ef4444" title="Red"></button>
+          <button data-color="#f97316" title="Orange"></button>
+          <button data-color="#eab308" title="Yellow"></button>
+          <button data-color="#22c55e" title="Green"></button>
+          <button data-color="#06b6d4" title="Cyan"></button>
+          <button data-color="#3b82f6" title="Blue"></button>
+          <button data-color="#8b5cf6" title="Purple"></button>
+          <button data-color="#ec4899" title="Pink"></button>
+          <button data-color="#94a3b8" title="Gray"></button>
+          <button data-color="#000000" title="Black"></button>
+          <button data-color="#ffffff" title="White"></button>
+        </div>
+        <label class="color-custom-row">Custom <input type="color" id="color-custom-input" value="#e6e8ee"></label>
+      </div>
+    </div>
+    <button class="tb" id="hl-btn" title="Highlight — select text, or click with nothing selected to paint multiple selections">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+    </button>
+    <button class="tb" data-cmd="removeFormat" title="Clear formatting">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+    <i class="ts"></i>
+    <button class="tb" data-cmd="insertUnorderedList" title="Bullet list">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><circle cx="4" cy="6" r="1" fill="currentColor"/><circle cx="4" cy="12" r="1" fill="currentColor"/><circle cx="4" cy="18" r="1" fill="currentColor"/></svg>
+    </button>
+    <button class="tb" data-cmd="insertOrderedList" title="Numbered list">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="10" y1="6" x2="21" y2="6"/><line x1="10" y1="12" x2="21" y2="12"/><line x1="10" y1="18" x2="21" y2="18"/><text x="2" y="8" font-size="7" fill="currentColor" stroke="none">1</text><text x="2" y="14" font-size="7" fill="currentColor" stroke="none">2</text><text x="2" y="20" font-size="7" fill="currentColor" stroke="none">3</text></svg>
+    </button>
+    <button class="tb" id="checklist-btn" title="Checklist">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+    </button>
+    <button class="tb" data-cmd="indent" title="Indent">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="4" x2="21" y2="4"/><line x1="11" y1="9" x2="21" y2="9"/><line x1="11" y1="14" x2="21" y2="14"/><line x1="3" y1="19" x2="21" y2="19"/><polyline points="3 9 7 12 3 14"/></svg>
+    </button>
+    <button class="tb" data-cmd="outdent" title="Outdent">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="4" x2="21" y2="4"/><line x1="11" y1="9" x2="21" y2="9"/><line x1="11" y1="14" x2="21" y2="14"/><line x1="3" y1="19" x2="21" y2="19"/><polyline points="7 9 3 12 7 14"/></svg>
+    </button>
+    <i class="ts"></i>
+    <button class="tb" data-cmd="justifyLeft" title="Align left">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="17" y1="10" x2="3" y2="10"/><line x1="21" y1="6" x2="3" y2="6"/><line x1="21" y1="14" x2="3" y2="14"/><line x1="17" y1="18" x2="3" y2="18"/></svg>
+    </button>
+    <button class="tb" data-cmd="justifyCenter" title="Align center">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="10" x2="6" y2="10"/><line x1="21" y1="6" x2="3" y2="6"/><line x1="21" y1="14" x2="3" y2="14"/><line x1="18" y1="18" x2="6" y2="18"/></svg>
+    </button>
+    <button class="tb" data-cmd="justifyRight" title="Align right">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="21" y1="10" x2="7" y2="10"/><line x1="21" y1="6" x2="3" y2="6"/><line x1="21" y1="14" x2="3" y2="14"/><line x1="21" y1="18" x2="7" y2="18"/></svg>
+    </button>
+    <i class="ts"></i>
+    <button class="tb" id="link-btn" title="Insert link">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+    </button>
+    <button class="tb" id="code-btn" title="Inline code">&lt;/&gt;</button>
+    <button class="tb" id="math-btn" title="Math equation / LaTeX">∑</button>
+    <button class="tb" id="table-btn" title="Insert table">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="3" y1="15" x2="21" y2="15"/><line x1="9" y1="3" x2="9" y2="21"/><line x1="15" y1="3" x2="15" y2="21"/></svg>
+    </button>
+    <button class="tb" id="hr-btn" title="Divider">—</button>
+    <button class="tb" id="img-btn" title="Insert image">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+    </button>
+    <input type="file" id="img-input" accept="image/*" hidden>
+  </div>
+</header>
+<main id="workspace">
+  <div id="editor" contenteditable="true" spellcheck="true"
+       data-placeholder="Start writing… Snap a video frame with the button above."></div>
+</main>
+<footer id="status-bar">
+  <span id="word-count">0 words</span>
+  <span id="char-count">0 chars</span>
+  <span id="save-status"><span id="save-dot"></span><span id="save-label">Saved</span></span>
+</footer>
+</div>
+<div id="export-menu" class="drop hidden">
+  <button class="drop-i" data-export="pdf"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg> PDF</button>
+  <button class="drop-i" data-export="word"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="9" y1="13" x2="9" y2="17"/><line x1="12" y1="13" x2="12" y2="17"/><line x1="15" y1="13" x2="15" y2="17"/></svg> Word (.doc)</button>
+  <button class="drop-i" data-export="markdown"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M7 15V9l3 3 3-3v6M17 9v6M14.5 12.5 17 15l2.5-2.5"/></svg> Markdown</button>
+  <button class="drop-i" data-export="text"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="8" y1="13" x2="16" y2="13"/><line x1="8" y1="17" x2="13" y2="17"/></svg> Plain Text</button>
+  <div class="drop-d"></div>
+  <button class="drop-i" data-export="backup"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg> Backup All</button>
+  <button class="drop-i" id="restore-btn"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12A9 9 0 1 1 6 5.3L3 8"/><polyline points="3 3 3 8 8 8"/></svg> Restore…</button>
+  <input type="file" id="restore-input" accept="application/json" hidden>
+</div>
+<div id="notes-panel" class="hidden">
+  <div class="np-head">
+    <span class="np-title">My Notes</span>
+    <input id="notes-search" type="text" placeholder="Search…">
+    <button id="new-note-btn" class="np-add" title="New note">＋</button>
+  </div>
+  <div id="notes-list"></div>
+</div>
+<div id="settings-overlay" class="hidden"></div>
+<aside id="settings-drawer" class="hidden">
+  <div class="dr-head"><span>Settings</span><button id="settings-close" class="hdr-icon">✕</button></div>
+  <div class="dr-body">
+    <div class="sg"><div class="sl">Your Library</div>
+      <div class="stats-row">
+        <div class="stat-box"><span id="stat-notes">0</span><small>Notes</small></div>
+        <div class="stat-box"><span id="stat-words">0</span><small>Words</small></div>
+      </div>
+    </div>
+    <div class="sg"><div class="sl">Theme</div><div class="theme-row">
+      <button class="th-o" data-theme="dark"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg> Dark</button>
+      <button class="th-o" data-theme="light"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="4"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.2" y1="4.2" x2="5.6" y2="5.6"/><line x1="18.4" y1="18.4" x2="19.8" y2="19.8"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.2" y1="19.8" x2="5.6" y2="18.4"/><line x1="18.4" y1="5.6" x2="19.8" y2="4.2"/></svg> Light</button>
+    </div></div>
+    <div class="sg"><div class="sl">Font Family</div><select id="font-select" class="s-sel"><option value="serif">Crimson Pro (Serif)</option><option value="sans">Inter (Sans)</option><option value="mono">JetBrains Mono</option></select></div>
+    <div class="sg"><div class="sl">Text Size</div>
+      <div class="fsize-presets">
+        <button class="fsize-preset" data-px="12">Small<br><small>12px</small></button>
+        <button class="fsize-preset" data-px="15">Normal<br><small>15px</small></button>
+        <button class="fsize-preset" data-px="18">Large<br><small>18px</small></button>
+        <button class="fsize-preset" data-px="22">Huge<br><small>22px</small></button>
+      </div>
+    </div>
+    <div class="sg"><div class="sl">Spellcheck</div><label class="tgl"><input type="checkbox" id="spellcheck-toggle" checked><span>Enabled</span></label></div>
+    <div class="sg"><div class="sl">Customize Toolbar</div>
+      <p style="font-size:11px;color:var(--mu);margin-bottom:6px;line-height:1.5">Choose exactly which tools appear — each one can be toggled individually.</p>
+      <div id="toolbar-tools-settings" class="tb-settings"></div>
+    </div>
+    <div class="sg"><div class="sl">Note Actions</div>
+      <button id="clear-note-btn" class="btn-d full"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/></svg> Clear this note</button>
+    </div>
+    <div class="sg"><div class="sl">Data</div>
+      <button id="backup-btn" class="btn-s full"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/></svg> Backup all</button>
+      <button id="restore-btn2" class="btn-s full" style="margin-top:5px"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12A9 9 0 1 1 6 5.3L3 8"/><polyline points="3 3 3 8 8 8"/></svg> Restore</button>
+      <input type="file" id="restore-input2" accept="application/json" hidden>
+      <button id="delete-all-btn" class="btn-d full" style="margin-top:5px"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg> Delete ALL</button>
+    </div>
+    <div class="sg"><div class="sl">Shortcuts</div>
+      <div class="sc"><kbd>Ctrl+B</kbd><span>Bold</span></div>
+      <div class="sc"><kbd>Ctrl+I</kbd><span>Italic</span></div>
+      <div class="sc"><kbd>Ctrl+U</kbd><span>Underline</span></div>
+      <div class="sc"><kbd>Ctrl+S</kbd><span>Save</span></div>
+      <div class="sc"><kbd>Tab</kbd><span>Indent</span></div>
+    </div>
+    <div class="sg"><p class="about">StudySnap Pro<br>Built for students. 100% local.</p></div>
+  </div>
+</aside>
+<div id="crop-modal" class="hidden">
+  <div class="crop-bar">
+    <span class="crop-t"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2v4H2M18 22v-4h4M22 6h-4V2M2 18h4v4"/></svg> Crop</span>
+    <span id="crop-info" class="crop-info">Draw a selection on the image</span>
+    <div class="crop-acts">
+      <button id="crop-reset" class="btn-s">↺ Reset</button>
+      <button id="crop-cancel" class="btn-s">Cancel</button>
+      <button id="crop-apply" class="btn-p">Apply Crop</button>
+    </div>
+  </div>
+  <div id="crop-area"><canvas id="crop-canvas"></canvas></div>
+</div>
+<div id="modal-root"></div>
+<div id="toast-box"></div>
+<script src="../lib/html2pdf.bundle.min.js"></script>
+<script src="../js/db.js"></script>
+<script src="../js/editor-core.js"></script>
+<script src="../js/panel.js"></script>
+</body>
+</html>

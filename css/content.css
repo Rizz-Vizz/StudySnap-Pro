@@ -1,0 +1,88 @@
+
+.ssp-yt-btn {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  height: 100% !important;
+  width: auto !important;
+  padding: 0 10px !important;
+  margin: 0 2px !important;
+  border: none !important;
+  border-radius: 4px !important;
+  outline: none !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  box-sizing: border-box !important;
+  color: #ffffff !important;
+  cursor: pointer !important;
+  opacity: 0.85 !important;
+  transition: opacity 0.12s ease, background 0.12s ease !important;
+  position: relative !important;
+  vertical-align: middle !important;
+  overflow: visible !important;
+}
+.ssp-yt-btn:hover {
+  opacity: 1 !important;
+  background: rgba(255, 255, 255, 0.12) !important;
+}
+.ssp-yt-btn:active {
+  background: rgba(255, 255, 255, 0.20) !important;
+  opacity: 1 !important;
+}
+.ssp-yt-btn.ssp-active {
+  opacity: 1 !important;
+}
+.ssp-yt-btn.ssp-active::after {
+  content: '' !important;
+  display: block !important;
+  position: absolute !important;
+  bottom: 0 !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  width: 18px !important;
+  height: 3px !important;
+  background: #ffffff !important;
+  border-radius: 2px 2px 0 0 !important;
+  pointer-events: none !important;
+}
+.ssp-yt-btn:focus-visible {
+  outline: 2px solid rgba(255,255,255,0.7) !important;
+  outline-offset: 1px !important;
+}
+.ssp-yt-btn::before {
+  display: none !important;
+  content: none !important;
+}
+.ssp-label {
+  display: inline !important;
+  font-family: 'Roboto', 'YouTube Sans', Arial, sans-serif !important;
+  font-size: 13px !important;
+  font-weight: 500 !important;
+  line-height: 1 !important;
+  color: #ffffff !important;
+  white-space: nowrap !important;
+  pointer-events: none !important;
+  letter-spacing: 0.01em !important;
+  text-shadow: none !important;
+  -webkit-text-fill-color: #ffffff !important;
+}
+.ssp-yt-btn[data-tooltip]:hover::before {
+  content: attr(data-tooltip) !important;
+  display: block !important;
+  position: absolute !important;
+  bottom: calc(100% + 8px) !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  background: rgba(28, 28, 28, 0.92) !important;
+  color: #eee !important;
+  font-family: 'Roboto', Arial, sans-serif !important;
+  font-size: 12px !important;
+  font-weight: 400 !important;
+  padding: 4px 8px !important;
+  border-radius: 2px !important;
+  white-space: nowrap !important;
+  pointer-events: none !important;
+  z-index: 99999 !important;
+  letter-spacing: 0 !important;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.4) !important;
+}

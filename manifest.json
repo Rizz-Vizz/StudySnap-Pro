@@ -1,0 +1,54 @@
+{
+  "manifest_version": 3,
+  "name": "StudySnap Pro",
+  "version": "5.6.0",
+  "description": "The ultimate YouTube study companion: snap frames, take rich notes, and organize everything. 100% local & private.",
+  "permissions": [
+    "sidePanel",
+    "activeTab",
+    "scripting",
+    "storage",
+    "tabs"
+  ],
+  "host_permissions": [
+    "*://*.youtube.com/*"
+  ],
+  "background": {
+    "service_worker": "js/background.js"
+  },
+  "side_panel": {
+    "default_path": "html/panel.html"
+  },
+  "action": {
+    "default_title": "StudySnap Pro — Open Notes (YouTube only)",
+    "default_icon": {
+      "16": "assets/icon16.png",
+      "32": "assets/icon32.png",
+      "48": "assets/icon48.png",
+      "128": "assets/icon128.png"
+    }
+  },
+  "content_scripts": [
+    {
+      "matches": ["*://*.youtube.com/*"],
+      "js": ["js/content.js"],
+      "css": ["css/content.css"],
+      "run_at": "document_idle"
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": ["html/history.html", "html/panel.html", "html/popup.html", "js/popup.js", "assets/icon128.png"],
+      "matches": ["<all_urls>"]
+    }
+  ],
+  "content_security_policy": {
+    "extension_pages": "script-src 'self' 'wasm-unsafe-eval'; object-src 'self';"
+  },
+  "icons": {
+    "16": "assets/icon16.png",
+    "32": "assets/icon32.png",
+    "48": "assets/icon48.png",
+    "128": "assets/icon128.png"
+  }
+}

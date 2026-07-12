@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>StudySnap Pro — Notes Library</title>
+  <meta name="description" content="Your personal note library for StudySnap Pro. Organize, search, and edit all your captured notes.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&family=Crimson+Pro:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/history.css">
+</head>
+<body>
+<aside id="sidebar">
+  <div class="sidebar-brand">
+    <span class="brand-logo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 3.5h9.5a1.5 1.5 0 0 1 1.5 1.5v13.2a1.5 1.5 0 0 1-1.5 1.5H6.5A2.5 2.5 0 0 1 4 17.2V6A2.5 2.5 0 0 1 6.5 3.5z"/><path d="M4 17.2a2.5 2.5 0 0 1 2.5-2.2H17.5" stroke-width="1.6"/><path d="M8 8h6M8 11h6" stroke-width="1.6"/></svg></span>
+    <div>
+      <div class="brand-title">StudySnap Pro</div>
+      <div class="brand-sub">Notes Library</div>
+    </div>
+  </div>
+  <div class="sidebar-search-wrap">
+    <svg class="sidebar-search-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+    <input id="global-search" type="text" placeholder="Search notes…" autocomplete="off" spellcheck="false">
+    <kbd class="sidebar-search-kbd">Ctrl+K</kbd>
+  </div>
+  <nav class="sidebar-nav">
+    <div class="nav-section-label">Library</div>
+    <button class="nav-item active" data-filter="all">
+      <svg class="nav-svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+      All Notes <span class="nav-badge" id="badge-all">0</span>
+    </button>
+    <button class="nav-item" data-filter="starred">
+      <svg class="nav-svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+      Starred <span class="nav-badge" id="badge-starred">0</span>
+    </button>
+    <button class="nav-item" data-filter="recent">
+      <svg class="nav-svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+      Recent (7d) <span class="nav-badge" id="badge-recent">0</span>
+    </button>
+    <button class="nav-item" data-filter="ungrouped">
+      <svg class="nav-svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+      Ungrouped <span class="nav-badge" id="badge-ungrouped">0</span>
+    </button>
+    <div class="nav-section-label" style="margin-top:18px;">
+      Groups <button id="new-group-btn" class="nav-add-btn" title="New group">+</button>
+    </div>
+    <div id="groups-list"></div>
+    <div class="nav-section-label" style="margin-top:18px;">Tags</div>
+    <div id="tags-list"></div>
+  </nav>
+  <div class="sidebar-footer">
+    <div class="sidebar-stats">
+      <div class="stat-item"><span class="stat-val" id="stat-notes">0</span><span class="stat-lbl">Notes</span></div>
+      <div class="stat-item"><span class="stat-val" id="stat-words">0</span><span class="stat-lbl">Words</span></div>
+      <div class="stat-item"><span class="stat-val" id="stat-groups">0</span><span class="stat-lbl">Groups</span></div>
+    </div>
+    <div class="sidebar-footer-btns">
+      <button class="sf-btn" id="sb-theme-btn" title="Toggle theme">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg> Theme
+      </button>
+      <button class="sf-btn" id="sb-settings-btn" title="Toolbar &amp; editor settings">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg> Settings
+      </button>
+      <button class="sf-btn" id="sb-backup-btn" title="Backup all notes">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/></svg> Backup
+      </button>
+      <button class="sf-btn" id="sb-restore-btn" title="Restore from backup">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12A9 9 0 1 1 6 5.3L3 8"/><polyline points="3 3 3 8 8 8"/></svg> Restore
+      </button>
+      <input type="file" id="sb-restore-input" accept="application/json" style="display:none;">
+    </div>
+  </div>
+</aside>
+<div id="main-panel">
+  <header id="main-header">
+    <div class="main-header-top">
+      <div id="main-title-area">
+        <h1 id="main-heading">All Notes</h1>
+        <div id="main-subtitle"></div>
+      </div>
+      <div id="main-controls">
+        <select id="sort-select" class="ctrl-select">
+          <option value="recent">Most Recent</option>
+          <option value="oldest">Oldest First</option>
+          <option value="title">Title A–Z</option>
+          <option value="words">Most Words</option>
+        </select>
+        <div class="view-toggle" id="view-toggle">
+          <button class="view-btn active" data-view="grid" title="Grid view">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+          </button>
+          <button class="view-btn" data-view="list" title="List view">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+          </button>
+        </div>
+        <div id="bulk-bar" class="hidden">
+          <span id="bulk-count">0 selected</span>
+          <button id="bulk-move" class="ctrl-btn"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg> Move</button>
+          <button id="bulk-star" class="ctrl-btn"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg> Star</button>
+          <button id="bulk-delete" class="ctrl-btn danger"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/></svg> Delete</button>
+          <button id="bulk-cancel" class="ctrl-btn">Cancel</button>
+        </div>
+        <button id="new-note-main" class="ctrl-btn primary">＋ New Note</button>
+      </div>
+    </div>
+    <div id="filter-chips"></div>
+  </header>
+  <div id="cards-area">
+    <div id="cards-grid"></div>
+    <div id="empty-state" class="hidden">
+      <div class="empty-icon"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6.5 3.5h9.5a1.5 1.5 0 0 1 1.5 1.5v13.2a1.5 1.5 0 0 1-1.5 1.5H6.5A2.5 2.5 0 0 1 4 17.2V6A2.5 2.5 0 0 1 6.5 3.5z"/><path d="M4 17.2a2.5 2.5 0 0 1 2.5-2.2H17.5"/><path d="M8 8h6M8 11h6"/></svg></div>
+      <div class="empty-title">Nothing here yet</div>
+      <div class="empty-sub">Snap frames while watching YouTube videos and your notes will appear here.</div>
+      <button class="ctrl-btn primary" id="empty-new-btn" style="margin-top:12px;">＋ Create a Note</button>
+    </div>
+  </div>
+</div>
+<div id="editor-panel" class="hidden">
+  <div id="editor-panel-head">
+    <div id="ep-left">
+      <button id="ep-close" class="ep-icon-btn" title="Close (Esc)">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+      <input id="ep-title" type="text" placeholder="Note title…" spellcheck="false">
+    </div>
+    <div id="ep-right">
+      <span id="ep-save-status">Saved</span>
+      <button id="ep-star-btn" class="ep-icon-btn" title="Star">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+      </button>
+      <div class="ep-export-wrap">
+        <button id="ep-export-btn" class="ep-action-btn"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> Export</button>
+        <div id="ep-export-menu" class="ep-drop-menu hidden">
+          <button class="ep-drop-item" data-ep-export="pdf"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg> PDF</button>
+          <button class="ep-drop-item" data-ep-export="word"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="9" y1="13" x2="9" y2="17"/><line x1="12" y1="13" x2="12" y2="17"/><line x1="15" y1="13" x2="15" y2="17"/></svg> Word (.doc)</button>
+          <button class="ep-drop-item" data-ep-export="markdown"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M7 15V9l3 3 3-3v6M17 9v6M14.5 12.5 17 15l2.5-2.5"/></svg> Markdown</button>
+          <button class="ep-drop-item" data-ep-export="text"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="8" y1="13" x2="16" y2="13"/><line x1="8" y1="17" x2="13" y2="17"/></svg> Plain Text</button>
+        </div>
+      </div>
+      <button id="ep-settings-btn" class="ep-icon-btn" title="Toolbar settings">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+      </button>
+      <button id="ep-delete-btn" class="ep-action-btn danger" title="Delete note">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/></svg>
+      </button>
+    </div>
+  </div>
+  <div id="ep-meta-bar">
+    <span id="ep-video-info"></span>
+    <span id="ep-created"></span>
+    <div id="ep-tags-area">
+      <div id="ep-tags-list"></div>
+      <button id="ep-add-tag" class="ep-tag-add-btn">+ tag</button>
+    </div>
+    <select id="ep-group-select" class="ep-group-sel"></select>
+    <span id="ep-word-count">0 words</span>
+  </div>
+  <div id="ep-toolbar">
+    <button class="etb-btn" data-cmd="undo" title="Undo (Ctrl+Z)">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></svg>
+    </button>
+    <button class="etb-btn" data-cmd="redo" title="Redo (Ctrl+Y)">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.13-9.36L23 10"/></svg>
+    </button>
+    <div class="etb-sep"></div>
+    <select id="ep-block" class="etb-select" title="Block style">
+      <option value="p">Paragraph</option>
+      <option value="h1">Heading 1</option>
+      <option value="h2">Heading 2</option>
+      <option value="h3">Heading 3</option>
+      <option value="blockquote">Quote</option>
+      <option value="pre">Code Block</option>
+    </select>
+    <div id="ep-fsize-widget" class="fsize-widget" title="Font size — applies to selected text, or to new text you type next">
+      <button id="ep-fsize-dn" class="fw-btn">A−</button>
+      <span id="ep-fsize-label" class="fw-label">16px</span>
+      <button id="ep-fsize-up" class="fw-btn">A+</button>
+    </div>
+    <div class="etb-sep"></div>
+    <button class="etb-btn" data-cmd="bold" title="Bold (Ctrl+B)"><b>B</b></button>
+    <button class="etb-btn" data-cmd="italic" title="Italic (Ctrl+I)"><i>I</i></button>
+    <button class="etb-btn" data-cmd="underline" title="Underline (Ctrl+U)"><u>U</u></button>
+    <button class="etb-btn" data-cmd="strikeThrough" title="Strikethrough"><s>S</s></button>
+    <button class="etb-btn" data-cmd="superscript" title="Superscript">x²</button>
+    <button class="etb-btn" data-cmd="subscript" title="Subscript">x₂</button>
+    <div class="etb-sep"></div>
+    <div id="ep-color-widget" class="color-widget">
+      <button id="ep-color-btn" class="etb-btn" title="Text colour"><span class="color-current" style="background:#e6e8ee"></span></button>
+      <div id="ep-color-popover" class="color-popover hidden">
+        <div class="color-swatch-grid">
+          <button data-color="#e6e8ee" title="Default"></button>
+          <button data-color="#ef4444" title="Red"></button>
+          <button data-color="#f97316" title="Orange"></button>
+          <button data-color="#eab308" title="Yellow"></button>
+          <button data-color="#22c55e" title="Green"></button>
+          <button data-color="#06b6d4" title="Cyan"></button>
+          <button data-color="#3b82f6" title="Blue"></button>
+          <button data-color="#8b5cf6" title="Purple"></button>
+          <button data-color="#ec4899" title="Pink"></button>
+          <button data-color="#94a3b8" title="Gray"></button>
+          <button data-color="#000000" title="Black"></button>
+          <button data-color="#ffffff" title="White"></button>
+        </div>
+        <label class="color-custom-row">Custom <input type="color" id="ep-color-custom-input" value="#e6e8ee"></label>
+      </div>
+    </div>
+    <button class="etb-btn" id="ep-highlight-btn" title="Highlight toggle">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+    </button>
+    <div class="etb-sep"></div>
+    <button class="etb-btn" data-cmd="insertUnorderedList" title="Bullet list">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><circle cx="4" cy="6" r="1" fill="currentColor"/><circle cx="4" cy="12" r="1" fill="currentColor"/><circle cx="4" cy="18" r="1" fill="currentColor"/></svg>
+    </button>
+    <button class="etb-btn" data-cmd="insertOrderedList" title="Numbered list">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="10" y1="6" x2="21" y2="6"/><line x1="10" y1="12" x2="21" y2="12"/><line x1="10" y1="18" x2="21" y2="18"/><text x="2" y="8" font-size="7" fill="currentColor" stroke="none">1</text><text x="2" y="14" font-size="7" fill="currentColor" stroke="none">2</text><text x="2" y="20" font-size="7" fill="currentColor" stroke="none">3</text></svg>
+    </button>
+    <button class="etb-btn" id="ep-checklist-btn" title="Checklist">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+    </button>
+    <button class="etb-btn" data-cmd="indent" title="Indent">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="4" x2="21" y2="4"/><line x1="11" y1="9" x2="21" y2="9"/><line x1="11" y1="14" x2="21" y2="14"/><line x1="3" y1="19" x2="21" y2="19"/><polyline points="3 9 7 12 3 14"/></svg>
+    </button>
+    <button class="etb-btn" data-cmd="outdent" title="Outdent">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="4" x2="21" y2="4"/><line x1="11" y1="9" x2="21" y2="9"/><line x1="11" y1="14" x2="21" y2="14"/><line x1="3" y1="19" x2="21" y2="19"/><polyline points="7 9 3 12 7 14"/></svg>
+    </button>
+    <button class="etb-btn" data-cmd="justifyLeft" title="Align left">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="17" y1="10" x2="3" y2="10"/><line x1="21" y1="6" x2="3" y2="6"/><line x1="21" y1="14" x2="3" y2="14"/><line x1="17" y1="18" x2="3" y2="18"/></svg>
+    </button>
+    <button class="etb-btn" data-cmd="justifyCenter" title="Align center">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="10" x2="6" y2="10"/><line x1="21" y1="6" x2="3" y2="6"/><line x1="21" y1="14" x2="3" y2="14"/><line x1="18" y1="18" x2="6" y2="18"/></svg>
+    </button>
+    <button class="etb-btn" data-cmd="justifyRight" title="Align right">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="21" y1="10" x2="7" y2="10"/><line x1="21" y1="6" x2="3" y2="6"/><line x1="21" y1="14" x2="3" y2="14"/><line x1="21" y1="18" x2="7" y2="18"/></svg>
+    </button>
+    <div class="etb-sep"></div>
+    <button class="etb-btn" id="ep-link-btn" title="Insert link">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+    </button>
+    <button class="etb-btn" id="ep-code-btn" title="Inline code">&lt;/&gt;</button>
+    <button class="etb-btn" id="ep-math-btn" title="Math Equation">∑</button>
+    <button class="etb-btn" id="ep-table-btn" title="Insert table">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="3" y1="15" x2="21" y2="15"/><line x1="9" y1="3" x2="9" y2="21"/><line x1="15" y1="3" x2="15" y2="21"/></svg>
+    </button>
+    <button class="etb-btn" id="ep-hr-btn" title="Horizontal rule">—</button>
+    <button class="etb-btn" id="ep-img-btn" title="Insert image">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+    </button>
+    <input type="file" id="ep-img-input" accept="image/*" style="display:none;">
+    <div class="etb-sep"></div>
+    <button class="etb-btn" data-cmd="removeFormat" title="Clear formatting">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+  </div>
+  <div id="ep-editor-wrap">
+    <div id="ep-editor" contenteditable="true" spellcheck="true" data-placeholder="Start writing…"></div>
+  </div>
+</div>
+<div id="crop-modal" class="hidden">
+  <div class="crop-bar">
+    <span class="crop-t"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2v4H2M18 22v-4h4M22 6h-4V2M2 18h4v4"/></svg> Crop</span>
+    <span id="crop-info" class="crop-info">Draw a selection on the image</span>
+    <div class="crop-acts">
+      <button id="crop-reset" class="btn-s">↺ Reset</button>
+      <button id="crop-cancel" class="btn-s">Cancel</button>
+      <button id="crop-apply" class="btn-p">Apply Crop</button>
+    </div>
+  </div>
+  <div id="crop-area"><canvas id="crop-canvas"></canvas></div>
+</div>
+<div id="ep-modal-root"></div>
+<div id="ep-settings-overlay" class="modal-backdrop hidden" style="z-index:1500"></div>
+<aside id="ep-settings-drawer" class="hidden">
+  <div class="dr-head"><span>Toolbar Settings</span><button id="ep-settings-close" class="hdr-icon">✕</button></div>
+  <div class="dr-body">
+    <div class="sg"><div class="sl">Customize Toolbar</div>
+      <p style="font-size:11px;color:var(--muted);margin-bottom:6px;line-height:1.5">Choose exactly which tools appear in the note editor toolbar — each one can be toggled individually. Applies to both the notes page and the YouTube side panel.</p>
+      <div id="ep-toolbar-tools-settings" class="tb-settings"></div>
+    </div>
+  </div>
+</aside>
+<div id="group-modal" class="modal-backdrop hidden">
+  <div class="modal-box">
+    <h3 id="group-modal-title">Create Group</h3>
+    <span class="field-label">Group name</span>
+    <input type="text" id="group-name-input" placeholder="e.g. Physics">
+    <span class="field-label">Icon (emoji)</span>
+    <input type="text" id="group-icon-input" placeholder="📁" maxlength="4" style="width:72px;margin-top:0;">
+    <span class="field-label">Colour</span>
+    <div class="color-swatches" id="color-swatches"></div>
+    <div class="modal-actions">
+      <button class="ctrl-btn" id="group-cancel">Cancel</button>
+      <button class="ctrl-btn primary" id="group-save">Save Group</button>
+    </div>
+  </div>
+</div>
+<div id="move-modal" class="modal-backdrop hidden">
+  <div class="modal-box">
+    <h3>Move to Group</h3>
+    <div id="move-groups-list" style="margin:10px 0;display:flex;flex-direction:column;gap:6px;max-height:280px;overflow-y:auto;"></div>
+    <div class="modal-actions"><button class="ctrl-btn" id="move-cancel">Cancel</button></div>
+  </div>
+</div>
+<div id="confirm-modal" class="modal-backdrop hidden">
+  <div class="modal-box">
+    <h3 id="confirm-title">Confirm</h3>
+    <p id="confirm-msg"></p>
+    <div class="modal-actions">
+      <button class="ctrl-btn" id="confirm-cancel">Cancel</button>
+      <button class="ctrl-btn danger" id="confirm-ok">Delete</button>
+    </div>
+  </div>
+</div>
+<div id="tag-modal" class="modal-backdrop hidden">
+  <div class="modal-box" style="max-width:300px;">
+    <h3>Add Tag</h3>
+    <input type="text" id="tag-input" placeholder="Tag name…" style="margin-top:4px;">
+    <div class="modal-actions">
+      <button class="ctrl-btn" id="tag-cancel">Cancel</button>
+      <button class="ctrl-btn primary" id="tag-ok">Add</button>
+    </div>
+  </div>
+</div>
+<div id="kbd-hints">
+  <div class="kbd-hint"><kbd class="kh">Ctrl+K</kbd> <span>Search</span></div>
+  <div class="kbd-hint"><kbd class="kh">Ctrl+N</kbd> <span>New note</span></div>
+  <div class="kbd-hint"><kbd class="kh">Ctrl+S</kbd> <span>Save</span></div>
+  <div class="kbd-hint"><kbd class="kh">Esc</kbd> <span>Close editor</span></div>
+</div>
+<div id="h-toast-box"></div>
+<script src="../js/db.js"></script>
+<script src="../lib/html2pdf.bundle.min.js"></script>
+<script src="../js/editor-core.js"></script>
+<script src="../js/history.js"></script>
+</body>
+</html>
