@@ -1,6 +1,13 @@
-# StudySnap Pro
+<p align="center">
+  <img width="128" height="128" alt="icon128" src="https://github.com/user-attachments/assets/bba0109c-d8b8-4481-bc50-80d213b2c72f" />
 
-The ultimate YouTube study companion — snap frames, take rich notes, and organize everything directly from your browser. 100% local and private.
+</p>
+
+<h1 align="center">StudySnap Pro</h1>
+
+<p align="center"><em>The ultimate YouTube study companion : snap frames, take rich notes, and organize everything directly from your browser. 100% local and private.
+</em></p>
+
 
 ## Features
 - **Video Snaps**: Capture video frames straight from YouTube into your notes.
