@@ -131,7 +131,7 @@ async function checkActiveVideo(){
     return;
   }else if(id!==currentNoteId){
     await switchToNote(id,{title,url:tab.url});
-  }else if(titleInput.value!==title&&title&&title!=='YouTube'){
+  }else if((titleInput.value==='YouTube'||titleInput.value==='Untitled Note'||titleInput.value==='')&&title&&title!=='YouTube'){
 
     titleInput.value=title;
     const note=await loadNote(id);
