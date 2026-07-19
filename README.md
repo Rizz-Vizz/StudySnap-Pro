@@ -3,7 +3,8 @@
 
 </p>
 
-<h1 align="center">StudySnap Pro</h1>
+<h1 align="center"><a href="https://chromewebstore.google.com/detail/studysnap-pro/mfkeamchhddccdchllogcjeamemlokch?authuser=0&hl=en
+">StudySnap Pro</a></h1>
 
 <p align="center"><em>The ultimate YouTube study companion : snap frames, take rich notes, and organize everything directly from your browser. 100% local and private.
 </em>
